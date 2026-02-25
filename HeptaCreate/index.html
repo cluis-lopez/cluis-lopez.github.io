@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="styles.css" rel="stylesheet">
+    <title>Heptagramas</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">
+                <img src="logo.png" alt="logo" width="250">
+            </a>
+        </nav>
+    </div>
+
+    <div class="container mt-2">
+        <!-- Separador-->
+        <div class="container mt-2"></div>
+
+        <div class="container text-center mensajes">
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-secondary btn-lg" id="generar">Generar</button>
+                </div>
+                <div class="col-3"></div>
+                <div class="col"><button type="button" class="btn btn-secondary btn-lg" id="resolver">Resolver</button>
+                </div>
+                <div class="col-3"></div>
+                <div class="col"><button type="button" class="btn btn-secondary btn-lg"
+                        id="resultados">Resultados</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Separador-->
+        <div class="container mt-5"></div>
+
+        <div class="container text-center mt-2">
+            <div class="row">
+                <div class="col" id="pause">
+                    <div class="d-flex justify-content-between">
+                        <div><img src="play_pause.png" width="40px"></div>
+                        <div id="crono">00:00</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary align-center palabraInput" type="button" id="palabraInput"
+                            onkeydown="palabraInput(event)"></button>
+                    </div>
+                </div>
+                <div class="col"><span class="scoring" id="score">0/100</span></div>
+            </div>
+        </div>
+
+        <!-- Separador-->
+        <div class="container mt-5"></div>
+
+        <div class="container text-center mt-5">
+            <div class="row">
+                <div class="col">
+                    <canvas id="principal" width="350" height="350"></canvas>
+                    <div class="d-flex justify-content-evenly">
+                        <div>
+                            <button class="btn btn-outline-dark" type="button" id="backspace" onclick="palabraInput({key: 'Backspace'})">Borrar</button>
+                        </div>
+                        <div>
+                        <button class="btn button-main" type="button" id="revolver">
+                            <img class="img-fluid" src="rounded_arrow.png" width="60px" />
+                            <div>Revolver</div>
+                        </button>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-dark" type="button" id="enter" onclick="palabraInput({key: 'Enter'})">Enter</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <span id="palabras">Aqui el listado de palabras</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Generar -->
+    <div class="modal fade" id="generaModal" tabindex="-1" aria-labelledby="generaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Crear Nuevo Juego</h1>
+                </div>
+
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="p-2" id="generaMensaje"></div>
+                        <div class="p-2">
+                            <div class="form-check form-switch form-control-lg">
+                                <label class="form-check-label" for="auto" id="label4auto">Auto</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="auto" checked="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <td>Letra Obligatoria</td>
+                            <td><button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO0"
+                                    onkeydown="letraInput(event, true, 0)"></button></td>
+                        </tr>
+                        <tr>
+                            <td>Letras Opcionales</td>
+                            <td>
+                                <button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO1"
+                                    onkeydown="letraInput(event, false, 1)"></button>
+                                <button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO2"
+                                    onkeydown="letraInput(event, false, 2)"></button>
+                                <button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO3"
+                                    onkeydown="letraInput(event, false, 3)"></button>
+                                <button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO4"
+                                    onkeydown="letraInput(event, false, 4)"></button>
+                                <button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO5"
+                                    onkeydown="letraInput(event, false, 5)"></button>
+                                <button class="btn btn-outline-dark align-center cajaLetra" type="button" id="letraO6"
+                                    onkeydown="letraInput(event, false, 6)"></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="modal-body" id="resultadosCheck">
+
+                </div>
+
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="p-2">
+                            <button type="button" class="btn btn-secondary" id="check">Check</button>
+                        </div>
+                        <div class="p-2">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        </div>
+                        <div class="p-2">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="jugar"
+                                disabled="true">Jugar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Resultados -->
+    <div class="modal fade" id="resultadosModal" tabindex="-1" aria-labelledby="resultadosModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultadosTitulo">Histórico de Resultados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped table-bordered">
+                        <thead class="align-middle">
+                            <tr>
+                                <th scope="col" onclick="ordenaResultados('fecha')">
+                                    <div class="d-flex justify-content-between">
+                                        <div>Fecha</div>
+                                        <div><img src="icon_arrows.png" width="40px"></div>
+                                    </div>
+                                </th>
+                                <th scope="col">Tiempo</th>
+                                <th scope="col">Letras</th>
+                                <th scope="col" colspan="2" onclick="ordenaResultados('palabra')">
+                                    <div class="d-flex justify-content-between">
+                                        <div>Encontradas</div>
+                                        <div><img src="icon_arrows.png" width="40px"></div>
+                                    </div>
+                                </th>
+                                <th scope="col" colspan="2" onclick="ordenaResultados('heptas')">
+                                    <div class="d-flex justify-content-between">
+                                        <div>Heptas</div>
+                                        <div><img src="icon_arrows.png" width="40px"></div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultadosContent">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script src="rae_words.js"></script>
+    <script src="aux.js"></script>
+    <script src="logica.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

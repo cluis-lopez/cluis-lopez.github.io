@@ -1,0 +1,47 @@
+#crono {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+}
+
+#score {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: normal;
+}
+
+.palabraInput {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+    border-radius: 5%;
+    border-color: darkblue;
+    min-height: 50px;
+}
+
+.mensajes {
+    background-color: rgb(225, 224, 224);
+    font-weight: bold;
+    padding: 1em;
+}
+
+.cajaLetra {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+    text-align: center;
+    min-width: 45px;
+    max-width: 45px;
+    min-height: 45px;
+    max-height: 45px;
+}
+
+.paused {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+td {
+    word-wrap: break-word;
+}
